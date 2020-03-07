@@ -1,15 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+    <form method="get" action="">
+        {{ search_form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+    <form method="get" action="">
+        {{ ordering_form.as_p }}
+        <button type="submit">Order</button>
+    </form>
     <form method="post" action="{% url 'create_note' %}">
         {% csrf_token %}
         {{ create_form.as_p }}
         <button type="submit">New note!!</button>
     </form>
     {% for object in page_obj %}
-        {{ object.text }} <form method="post" action="{% url 'delete_note' object.id %}">{% csrf_token %} <button type="submit">DELETE</button></form>
+        {{ object.text }}
+        <form method="post" action="{% url 'delete_note' object.id %}">{% csrf_token %}
+            <button type="submit">DELETE</button>
+        </form>
         <br>
+        <form method="post" action="{% url 'share_note' object.id %}">{% csrf_token %}
+            <button type="submit">
+                {% if object.is_shared %}Unshare{% else %}Share{% endif %}
+            </button>
+        </form>
     {% endfor %}
 
     <div class="pagination">
@@ -28,6 +43,6 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
-</div>
+    </div>
 
 {% endblock %}

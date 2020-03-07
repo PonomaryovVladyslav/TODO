@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from todo.views import Registration, NotesListView, Login, Logout, NotesCreateView, NoteDeleteView
+from todo.views import Registration, NotesListView, Login, Logout, NotesCreateView, NoteDeleteView, NoteShareView, \
+    NotesSharedListView
 
 urlpatterns = [
     path('', NotesListView.as_view(), name='index'),
@@ -25,5 +26,7 @@ urlpatterns = [
     path('registration/', Registration.as_view(), name='registration'),
     path('admin/', admin.site.urls),
     path('create_note/', NotesCreateView.as_view(), name='create_note'),
-    path('delete_note/<int:pk>/', NoteDeleteView.as_view(), name='delete_note')
+    path('delete_note/<int:pk>/', NoteDeleteView.as_view(), name='delete_note'),
+    path('share_note/<int:pk>/', NoteShareView.as_view(), name='share_note'),
+    path('shared/', NotesSharedListView.as_view(), name='shared')
 ]
