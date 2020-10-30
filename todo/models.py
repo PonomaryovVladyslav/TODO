@@ -15,3 +15,4 @@ class Notes(models.Model):
         verbose_name = 'Zametka'
         verbose_name_plural = 'Zametki'
         unique_together = ('author', 'text')
+        permissions = [('to_check_groups', 'Bla bla'),]

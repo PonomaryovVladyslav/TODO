@@ -12,6 +12,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 from todo.forms import CreateNotesForm, SearchBoxForm, OrderingForm
 from todo.models import Notes
+from django.contrib import messages
 
 
 class Registration(CreateView):
@@ -76,6 +77,9 @@ class NotesCreateView(LoginRequiredMixin, CreateView):
         obj = form.save(commit=False)
         obj.author = self.request.user
         self.object = obj.save()
+        messages.add_message(self.request, messages.INFO, 'Hello world.')
+        messages.success(self.request, 'Profile details updated.')
+        messages.error(self.request, 'Document deleted.')
         return super().form_valid(form)
 
 
